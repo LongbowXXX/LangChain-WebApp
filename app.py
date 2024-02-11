@@ -4,6 +4,10 @@
 #  http://opensource.org/licenses/mit-license.php
 
 from flask import Flask
+from flask.cli import load_dotenv
+
+# .flaskenvファイルの内容を読み込見込む
+load_dotenv()
 
 app = Flask(__name__)
 

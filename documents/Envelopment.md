@@ -13,3 +13,10 @@ Shift２回押しで開く検索画面で`vmoptions`を検索し、`pycharm64.ex
 ```
 -Dfile.encoding=UTF-8
 ```
+
+## 環境変数
+
+`.flaskenv` に環境変数を設定する。
+```
+OPENAI_API_KEY='your_api_key'
+```
