@@ -6,6 +6,8 @@
 from flask import Flask
 from flask.cli import load_dotenv
 
+from agent.agent_with_rag import run_agent
+
 # .flaskenvファイルの内容を読み込見込む
 load_dotenv()
 
@@ -13,8 +15,8 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():  # put application's code here
-    return 'Hello World!'
+async def hello_world():  # put application's code here
+    return await run_agent()
 
 
 if __name__ == '__main__':
