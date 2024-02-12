@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>LangChain Agent</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <h2>Input Form</h2>
 
-<form action="/" method="post">
-    <label for="query">Query:</label><br>
+<form id="query-form" action="/agent" method="post">
+    <label for="query">UseInput:</label><br>
     <input type="text" id="query" name="query"
            value="大統領は最新の一般教書でケタンジ・ブラウン・ジャクソンについて何と言いましたか?簡潔に答えてください。"><br>
     <input type="submit" value="Submit">
@@ -16,10 +17,28 @@
 
 <h2>History</h2>
 
-<ul>
+<ul id="history">
     {% for input, response in history %}
         <li><strong>User:</strong> {{ input }} <br> <strong>Response:</strong> {{ response }}</li>
     {% endfor %}
 </ul>
+
+<script>
+    $(document).ready(function () {
+        $("#query-form").on("submit", function (event) {
+            event.preventDefault();
+            $.ajax({
+                url: "/agent",
+                type: "POST",
+                data: $(this).serialize(),
+                success: function (data) {
+                    $("#history").append('<li><strong>User:</strong> ' + data.user_input + ' <br> <strong>Response:</strong> ' + data.response + '</li>');
+                    $("#query").val('');
+                }
+            });
+        });
+    });
+</script>
+
 </body>
 </html>
