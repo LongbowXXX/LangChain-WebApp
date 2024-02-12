@@ -3,42 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>LangChain Agent</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 </head>
 <body>
-<h2>Input Form</h2>
-
 <form id="query-form" action="/agent" method="post">
-    <label for="query">UseInput:</label><br>
+    <label for="query">Uer Input:</label><br>
     <input type="text" id="query" name="query"
            value="大統領は最新の一般教書でケタンジ・ブラウン・ジャクソンについて何と言いましたか?簡潔に答えてください。"><br>
     <input type="submit" value="Submit">
 </form>
 
-<h2>History</h2>
-
 <ul id="history">
     {% for input, response in history %}
-        <li><strong>User:</strong> {{ input }} <br> <strong>Response:</strong> {{ response }}</li>
+        <li class="user-input"><strong>User:</strong> {{ input }}</li>
+        <li class="system-response"><strong>Response:</strong> {{ response }}</li>
     {% endfor %}
 </ul>
-
-<script>
-    $(document).ready(function () {
-        $("#query-form").on("submit", function (event) {
-            event.preventDefault();
-            $.ajax({
-                url: "/agent",
-                type: "POST",
-                data: $(this).serialize(),
-                success: function (data) {
-                    $("#history").append('<li><strong>User:</strong> ' + data.user_input + ' <br> <strong>Response:</strong> ' + data.response + '</li>');
-                    $("#query").val('');
-                }
-            });
-        });
-    });
-</script>
 
 </body>
 </html>

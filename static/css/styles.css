@@ -1,0 +1,97 @@
+/*
+ * Copyright (c) 2024 LongbowXXX
+ *
+ * This software is released under the MIT License.
+ * http://opensource.org/licenses/mit-license.php
+ */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+#query-form {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #fff;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+}
+
+#history {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    height: calc(100vh - 70px);
+    padding-bottom: 70px;
+}
+
+#history li {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/* ユーザ入力の吹き出し */
+#history li.user-input {
+    background-color: #DCF8C6;
+    color: #000000;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    display: inline-block;
+    position: relative;
+    width: auto;
+    max-width: 80%;
+    float: right;
+    clear: both;
+}
+
+#history li.user-input::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 0;
+    height: 0;
+    border: 15px solid transparent;
+    border-left-color: #DCF8C6;
+    border-right: 0;
+    border-bottom: 0;
+    margin-top: -7.5px;
+    margin-right: -15px;
+}
+
+/* システムのレスポンスの吹き出し */
+#history li.system-response {
+    background-color: #FFFFFF;
+    color: #000000;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    display: inline-block;
+    position: relative;
+    width: auto;
+    max-width: 80%;
+    float: left;
+    clear: both;
+}
+
+#history li.system-response::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 0;
+    height: 0;
+    border: 15px solid transparent;
+    border-right-color: #FFFFFF;
+    border-left: 0;
+    border-bottom: 0;
+    margin-top: -7.5px;
+    margin-left: -15px;
+}
