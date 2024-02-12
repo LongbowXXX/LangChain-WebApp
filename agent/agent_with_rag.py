@@ -13,7 +13,7 @@ from langchain_community.vectorstores.chroma import Chroma
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 
 
-async def run_agent() -> str:
+async def run_agent(input: str) -> str:
     persist_directory = './tmp/state_of_union_db'
     client = chromadb.PersistentClient(path=persist_directory)
 
@@ -48,12 +48,7 @@ async def run_agent() -> str:
     llm = ChatOpenAI(temperature=0)
     agent_executor = create_conversational_retrieval_agent(llm, tools, verbose=True)
     result = await agent_executor.ainvoke({
-        "input": "大統領は最新の一般教書でケタンジ・ブラウン・ジャクソンについて何と言いましたか?簡潔に答えてください。"
+        'input': input
     })
-    # result = agent_executor(
-    #     {
-    #         "input": "大統領は最新の一般教書でケタンジ・ブラウン・ジャクソンについて何と言いましたか?簡潔に答えてください。"
-    #     }
-    # )
-    print(result["output"])
-    return result["output"]
+    print(result['output'])
+    return result['output']
