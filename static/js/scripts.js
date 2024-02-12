@@ -16,6 +16,8 @@ $(document).ready(function () {
                 $("#history").append('<li class="user-input"><strong>User:</strong> ' + data.user_input + '</li>');
                 $("#history").append('<li class="system-response"><strong>Response:</strong> ' + data.response + '</li>');
                 $("#query").val('');
+                let utterance = new SpeechSynthesisUtterance(data.response);
+                window.speechSynthesis.speak(utterance);
             }
         });
     });
