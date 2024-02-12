@@ -95,3 +95,41 @@ body {
     margin-top: -7.5px;
     margin-left: -15px;
 }
+
+#query-form input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+#query-form input[type="submit"] {
+    width: 15%;
+    margin-left: 5%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#query-form input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+#query-form {
+    display: flex;
+    justify-content: space-between;
+}
+
+#query-form input[type="text"] {
+    width: 75%;
+}
+
+#query-form input[type="submit"] {
+    width: 20%;
+    margin-left: 5%;
+}
