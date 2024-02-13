@@ -8,9 +8,14 @@
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 </head>
 <body>
-<form id="query-form" action="/agent" method="post">
-    <label for="query"></label><br>
-    <input type="text" id="query" name="query"
+<form id="user-input-form" action="/agent" method="post">
+    <label for="system-prompt"></label><br>
+    <input type="text" id="system-prompt" name="system-prompt"
+           placeholder="ここにエージェントの設定を入力してください。"
+           value="あなたは猫の獣人です。語尾に『にゃ』をつけて対話してください。"><br>
+    <label for="user-input"></label><br>
+    <input type="text" id="user-input" name="user-input"
+           placeholder="ここにエージェントに聞きたいことを入力してください。"
            value="大統領は最新の一般教書でケタンジ・ブラウン・ジャクソンについて何と言いましたか?簡潔に答えてください。"><br>
     <input type="submit" value="Submit">
 </form>

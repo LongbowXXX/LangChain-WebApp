@@ -3,17 +3,19 @@
 #  This software is released under the MIT License.
 #  http://opensource.org/licenses/mit-license.php
 import chromadb
-from langchain.agents.agent_toolkits import create_conversational_retrieval_agent
+from langchain import hub
+from langchain.agents import AgentExecutor, create_openai_tools_agent
 from langchain.agents.agent_toolkits import create_retriever_tool
 
 from langchain.text_splitter import CharacterTextSplitter
 
 from langchain_community.document_loaders import TextLoader
 from langchain_community.vectorstores.chroma import Chroma
+from langchain_core.messages import SystemMessage
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 
 
-async def run_agent(input: str) -> str:
+async def run_agent(user_input: str, system_prompt: str) -> str:
     persist_directory = './tmp/state_of_union_db'
     client = chromadb.PersistentClient(path=persist_directory)
 
@@ -45,10 +47,15 @@ async def run_agent(input: str) -> str:
         "一般教書に関する文書を検索して返却します。",
     )
     tools = [tool]
-    llm = ChatOpenAI(temperature=0)
-    agent_executor = create_conversational_retrieval_agent(llm, tools, verbose=True)
+    llm = ChatOpenAI(model='gpt-3.5-turbo-0125', temperature=0)
+    prompt = hub.pull('hwchase17/openai-tools-agent')
+    agent = create_openai_tools_agent(llm, tools, prompt)
+    agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
     result = await agent_executor.ainvoke({
-        'input': input
+        'chat_history': [
+            SystemMessage(content=system_prompt),
+        ],
+        'input': user_input
     })
     print(result['output'])
     return result['output']

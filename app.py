@@ -22,8 +22,9 @@ def form():
 
 @app.route('/agent', methods=['POST'])
 async def agent():
-    user_input = request.form['query']
-    response = await run_agent(user_input)
+    user_input = request.form['user-input']
+    system_prompt = request.form['system-prompt']
+    response = await run_agent(user_input, system_prompt)
     if 'history' not in session:
         session['history'] = []
     session['history'].append((user_input, response))

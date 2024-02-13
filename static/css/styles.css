@@ -12,7 +12,7 @@ body {
     padding: 0;
 }
 
-#query-form {
+#user-input-form {
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -96,7 +96,7 @@ body {
     margin-left: -15px;
 }
 
-#query-form input[type="text"] {
+#user-input-form input[type="text"] {
     width: 80%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -104,7 +104,7 @@ body {
     font-size: 16px;
 }
 
-#query-form input[type="submit"] {
+#user-input-form input[type="submit"] {
     width: 15%;
     margin-left: 5%;
     padding: 10px;
@@ -116,20 +116,20 @@ body {
     font-size: 16px;
 }
 
-#query-form input[type="submit"]:hover {
+#user-input-form input[type="submit"]:hover {
     background-color: #45a049;
 }
 
-#query-form {
+#user-input-form {
     display: flex;
     justify-content: space-between;
 }
 
-#query-form input[type="text"] {
+#user-input-form input[type="text"] {
     width: 75%;
 }
 
-#query-form input[type="submit"] {
+#user-input-form input[type="submit"] {
     width: 20%;
     margin-left: 5%;
 }

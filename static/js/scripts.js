@@ -6,7 +6,7 @@
  */
 
 $(document).ready(function () {
-    $("#query-form").on("submit", function (event) {
+    $("#user-input-form").on("submit", function (event) {
         event.preventDefault();
         $.ajax({
             url: "/agent",
@@ -15,7 +15,7 @@ $(document).ready(function () {
             success: function (data) {
                 $("#history").append('<li class="user-input"><strong>User:</strong> ' + data.user_input + '</li>');
                 $("#history").append('<li class="system-response"><strong>Response:</strong> ' + data.response + '</li>');
-                $("#query").val('');
+                $("#user-input").val('');
                 let utterance = new SpeechSynthesisUtterance(data.response);
                 window.speechSynthesis.speak(utterance);
             }
