@@ -21,9 +21,12 @@
 </form>
 
 <ul id="history">
-    {% for input, response in history %}
-        <li class="user-input"><strong>User:</strong> {{ input }}</li>
-        <li class="system-response"><strong>Response:</strong> {{ response }}</li>
+    {% for message in history %}
+        {% if message['type'] == 'user' %}
+            <li class="user-input"><strong>User:</strong> {{ message['message'] }}</li>
+        {% else %}
+            <li class="system-response"><strong>Response:</strong> {{ message['message'] }}</li>
+        {% endif %}
     {% endfor %}
 </ul>
 

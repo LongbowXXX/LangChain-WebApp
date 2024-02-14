@@ -2,20 +2,20 @@
 #
 #  This software is released under the MIT License.
 #  http://opensource.org/licenses/mit-license.php
+from typing import List, Dict
+
 import chromadb
 from langchain import hub
 from langchain.agents import AgentExecutor, create_openai_tools_agent
 from langchain.agents.agent_toolkits import create_retriever_tool
-
 from langchain.text_splitter import CharacterTextSplitter
-
 from langchain_community.document_loaders import TextLoader
 from langchain_community.vectorstores.chroma import Chroma
-from langchain_core.messages import SystemMessage
+from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 
 
-async def run_agent(user_input: str, system_prompt: str) -> str:
+async def run_agent(user_input: str, system_prompt: str, history: List[Dict[str, str]]) -> str:
     persist_directory = './tmp/state_of_union_db'
     client = chromadb.PersistentClient(path=persist_directory)
 
@@ -51,10 +51,18 @@ async def run_agent(user_input: str, system_prompt: str) -> str:
     prompt = hub.pull('hwchase17/openai-tools-agent')
     agent = create_openai_tools_agent(llm, tools, prompt)
     agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+
+    chat_history = [
+        SystemMessage(content=system_prompt),
+    ]
+    # chat_history に過去の会話を追加
+    for message in history:
+        if message['type'] == 'user':
+            chat_history.append(HumanMessage(content=message['message']))
+        elif message['type'] == 'ai':
+            chat_history.append(AIMessage(content=message['message']))
     result = await agent_executor.ainvoke({
-        'chat_history': [
-            SystemMessage(content=system_prompt),
-        ],
+        'chat_history': chat_history,
         'input': user_input
     })
     print(result['output'])
