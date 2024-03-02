@@ -1,0 +1,19 @@
+name: GPT Review on Pull Request
+on:
+  pull_request:
+    types: [opened, ready_for_review]
+jobs:
+  add_pr_comment:
+    runs-on: ubuntu-latest
+    name: OpenAI PR Comment
+    steps:
+      - name: Install dependencies
+        run: |
+          python -m pip install langchain==0.0.301
+          python -m pip install pydantic==1.10.13
+          python -m pip install gpt-review==v0.9.5
+      - id: review
+        uses: microsoft/gpt-review@v0.9.5
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
